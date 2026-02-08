@@ -187,9 +187,9 @@ export default function StudyBreakSite() {
   };
 
   const spinRoulette = () => {
-    const categories = Object.keys(rouletteOptions);
+    const categories = Object.keys(rouletteOptions) as (keyof typeof rouletteOptions)[];
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const options = rouletteOptions[randomCategory];
+    const options = rouletteOptions[randomCategory as keyof typeof rouletteOptions];
     const randomOption = options[Math.floor(Math.random() * options.length)];
     
     setCurrentRoulette({ category: randomCategory, content: randomOption });
