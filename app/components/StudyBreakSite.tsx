@@ -6,7 +6,10 @@ import { Sparkles, Timer, Heart, Archive, Shuffle, Coffee, Brain, Zap, Phone } f
 export default function StudyBreakSite() {
   const [activeSection, setActiveSection] = useState('home');
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [currentRoulette, setCurrentRoulette] = useState(null);
+  const [currentRoulette, setCurrentRoulette] = useState<{
+  category: string;
+  content: string;
+} | null>(null);
   const [activeProtocol, setActiveProtocol] = useState(null);
   const [canChangeProtocol, setCanChangeProtocol] = useState(true);
   const [currentResponse, setCurrentResponse] = useState(null);
@@ -180,7 +183,7 @@ export default function StudyBreakSite() {
         },
         {
           message: "Sleep = secret weapon.",
-          action: "All-nighters sound hardcore but they're actually sabotage. Your brain processes and organizes info while you sleep. Don't skip the most important part."
+          action: "All-nighters sound hardcores but they're actually sabotage. Your brain processes and organizes info while you sleep. Don't skip the most important part."
         }
       ]
     }
