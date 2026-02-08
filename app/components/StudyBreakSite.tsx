@@ -18,7 +18,7 @@ export default function StudyBreakSite() {
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      const difference = examEndDate - now;
+      const difference = examEndDate.getTime() - now.getTime();
       
       setCountdown({
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
