@@ -1,27 +1,67 @@
-"use client";
+import React, { useState, useEffect } from 'react';
 
-import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Timer, Heart, Archive, Shuffle, Coffee, Brain, Zap, Phone } from 'lucide-react';
+// Icon components as simple SVGs
+const Sparkles = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+  </svg>
+);
+
+const Timer = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
+
+const Heart = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+  </svg>
+);
+
+const Archive = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+  </svg>
+);
+
+const Shuffle = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16V4m0 0L3 8m4-4l4 4m6 0v12m0 0l4-4m-4 4l-4-4" />
+  </svg>
+);
+
+const Coffee = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+);
+
+const Brain = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+  </svg>
+);
+
+const Zap = ({ className }) => (
+  <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+  </svg>
+);
 
 export default function StudyBreakSite() {
   const [activeSection, setActiveSection] = useState('home');
   const [countdown, setCountdown] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-  const [currentRoulette, setCurrentRoulette] = useState<{
-  category: string;
-  content: string;
-} | null>(null);
+  const [currentRoulette, setCurrentRoulette] = useState(null);
   const [activeProtocol, setActiveProtocol] = useState(null);
   const [canChangeProtocol, setCanChangeProtocol] = useState(true);
-  const [currentResponse, setCurrentResponse] = useState(null);
-  const cooldownTimer = useRef(null);
 
-  // Her exam end date
   const examEndDate = new Date('2026-04-10');
 
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      const difference = examEndDate.getTime() - now.getTime();
+      const difference = examEndDate - now;
       
       setCountdown({
         days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -51,7 +91,7 @@ export default function StudyBreakSite() {
     ],
     songs: [
       "Raabta (Kehti Hain Khuda Ne) - Agent Vinod",
-      "In The Air - Advaita (my fav)",
+      "In The Air - Advaita",
       "We're Best Friends - Hans Zimmer",
       "Magika - Thomas Bergersen",
       "Stronger - Kanye West",
@@ -63,7 +103,7 @@ export default function StudyBreakSite() {
     ],
     polls: [
       "Would you rather: Never have to study again OR have perfect memory but still need to study?",
-      "Fight 100 duck-sized environment questions or 1 horse-sized society case study?",
+      "Fight 100 duck-sized polity questions or 1 horse-sized ethics case study?",
       "Coffee at 2am or sleep? (There's only one right answer)",
       "Be able to pause time during exams OR read 10x faster?",
       "Would you rather: Master every subject overnight OR gain unshakeable exam confidence?"
@@ -85,7 +125,7 @@ export default function StudyBreakSite() {
         },
         {
           message: "You've hit the cognitive wall.",
-          action: "That thing where you read the same line 5 times? Yeah, time for a real break. Walk around. Call someone. Eat something."
+          action: "That thing where you read the same line 5 times? Yeah, time for a real break. Walk around. Call Vineeth. Eat something."
         },
         {
           message: "Mental capacity: 0%",
@@ -107,7 +147,7 @@ export default function StudyBreakSite() {
         },
         {
           message: "Future you is watching.",
-          action: "Every minute you put in now is a gift to yourself later. When you're done with PSC prep, you'll be so grateful you pushed through today."
+          action: "Every minute you put in now is a gift to yourself later. When you're done with prep, you'll be so grateful you pushed through today."
         },
         {
           message: "This is temporary.",
@@ -183,32 +223,67 @@ export default function StudyBreakSite() {
         },
         {
           message: "Sleep = secret weapon.",
-          action: "All-nighters sound hardcores but they're actually sabotage. Your brain processes and organizes info while you sleep. Don't skip the most important part."
+          action: "All-nighters sound hardcore but they're actually sabotage. Your brain processes and organizes info while you sleep. Don't skip the most important part."
         }
       ]
+      call: {
+      icon: Heart,
+      color: "from-red-400 to-rose-500",
+      responses: [
+        {
+          message: "Sometimes you just need to hear a voice.",
+          action: "Call Vineeth: +917093459359. Sometimes talking it out is the best protocol."
+        },
+        { 
+          message: "You don't have to do this alone.",
+          action: "Vineeth is just a call away: +917093459359. Reach out when you need to."
+        },
+        {
+          message: "It's okay to ask for support.",
+          action: "Call +917093459359. Even a 5-minute conversation can help reset your brain."
+        },
+        {
+          message: "Real humans > emergency protocols.",
+          action: "Pick up the phone, call Vineeth at +917093459359. Sometimes that's all you need."
+        }
+      ]
+     }
     }
   };
 
   const spinRoulette = () => {
-    const categories = Object.keys(rouletteOptions) as (keyof typeof rouletteOptions)[];
+    const categories = Object.keys(rouletteOptions);
     const randomCategory = categories[Math.floor(Math.random() * categories.length)];
-    const options = rouletteOptions[randomCategory as keyof typeof rouletteOptions];
+    const options = rouletteOptions[randomCategory];
     const randomOption = options[Math.floor(Math.random() * options.length)];
     
     setCurrentRoulette({ category: randomCategory, content: randomOption });
   };
 
+  const handleProtocolClick = (key) => {
+    if (!canChangeProtocol && activeProtocol === key) return;
+    
+    if (activeProtocol === key) {
+      setActiveProtocol(null);
+      setTimeout(() => setActiveProtocol(key), 50);
+    } else {
+      setActiveProtocol(key);
+    }
+    
+    setCanChangeProtocol(false);
+    setTimeout(() => setCanChangeProtocol(true), 5000);
+  };
+
   if (activeSection === 'home') {
     return (
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-amber-50 flex flex-col items-center justify-center p-8 relative overflow-hidden">
-        {/* Decorative elements */}
         <div className="absolute top-20 left-20 w-32 h-32 bg-gradient-to-br from-pink-200 to-rose-300 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute bottom-20 right-20 w-40 h-40 bg-gradient-to-br from-orange-200 to-amber-300 rounded-full opacity-20 blur-3xl"></div>
         <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-gradient-to-br from-purple-200 to-pink-200 rounded-full opacity-15 blur-2xl"></div>
         
         <div className="max-w-2xl w-full text-center space-y-10 relative z-10">
           <div className="space-y-4">
-            <h1 className="text-6xl md:text-7xl font-serif italic bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 bg-clip-text text-transparent" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h1 className="text-6xl md:text-7xl font-serif italic bg-gradient-to-r from-rose-600 via-orange-600 to-amber-600 bg-clip-text text-transparent">
               Survival Kit
             </h1>
             <p className="text-xl text-stone-600">
@@ -222,24 +297,27 @@ export default function StudyBreakSite() {
               { id: 'countdown', icon: Timer, label: 'Freedom Countdown', desc: 'Days until liberation', gradient: 'from-purple-500 to-indigo-500' },
               { id: 'emergency', icon: Heart, label: 'Emergency Protocols', desc: 'For crisis moments', gradient: 'from-orange-500 to-amber-500' },
               { id: 'capsule', icon: Archive, label: 'Time Capsule', desc: 'Coming after exams', gradient: 'from-teal-500 to-cyan-500' }
-            ].map((section) => (
-              <button
-                key={section.id}
-                onClick={() => setActiveSection(section.id)}
-                disabled={section.id === 'capsule'}
-                className={`p-8 rounded-3xl border-2 transition-all duration-500 text-left group relative overflow-hidden ${
-                  section.id === 'capsule' 
-                    ? 'border-stone-300 bg-stone-50/50 opacity-40 cursor-not-allowed backdrop-blur-sm' 
-                    : 'border-white/60 bg-white/40 hover:bg-white/60 backdrop-blur-sm hover:scale-105 hover:shadow-2xl hover:border-white/80'
-                }`}
-              >
-                <div className={`absolute inset-0 bg-gradient-to-br ${section.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
-                <section.icon className={`w-10 h-10 mb-4 transition-all duration-500 ${section.id !== 'capsule' && 'group-hover:scale-110 group-hover:rotate-12'}`} 
-                  style={{ color: section.id === 'capsule' ? '#999' : undefined }} />
-                <h3 className="text-xl font-bold mb-2">{section.label}</h3>
-                <p className="text-sm opacity-70">{section.desc}</p>
-              </button>
-            ))}
+            ].map((section) => {
+              const IconComponent = section.icon;
+              return (
+                <button
+                  key={section.id}
+                  onClick={() => setActiveSection(section.id)}
+                  disabled={section.id === 'capsule'}
+                  className={`p-8 rounded-3xl border-2 transition-all duration-500 text-left group relative overflow-hidden ${
+                    section.id === 'capsule' 
+                      ? 'border-stone-300 bg-stone-50/50 opacity-40 cursor-not-allowed backdrop-blur-sm' 
+                      : 'border-white/60 bg-white/40 hover:bg-white/60 backdrop-blur-sm hover:scale-105 hover:shadow-2xl hover:border-white/80'
+                  }`}
+                >
+                  <div className={`absolute inset-0 bg-gradient-to-br ${section.gradient} opacity-0 group-hover:opacity-10 transition-opacity duration-500`}></div>
+                  <IconComponent className={`w-10 h-10 mb-4 transition-all duration-500 ${section.id !== 'capsule' && 'group-hover:scale-110 group-hover:rotate-12'}`} 
+                    style={{ color: section.id === 'capsule' ? '#999' : undefined }} />
+                  <h3 className="text-xl font-bold mb-2">{section.label}</h3>
+                  <p className="text-sm opacity-70">{section.desc}</p>
+                </button>
+              );
+            })}
           </div>
 
           <p className="text-sm text-stone-500 mt-12 italic">
@@ -264,7 +342,7 @@ export default function StudyBreakSite() {
         </button>
 
         <div className="max-w-2xl w-full space-y-10 relative z-10">
-          <h2 className="text-5xl font-serif italic text-center bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent" style={{ fontFamily: 'Playfair Display, serif' }}>
+          <h2 className="text-5xl font-serif italic text-center bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent">
             Study Break Roulette
           </h2>
 
@@ -331,7 +409,7 @@ export default function StudyBreakSite() {
         </button>
 
         <div className="max-w-2xl w-full space-y-12 text-center relative z-10">
-          <h2 className="text-5xl font-serif italic bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent" style={{ fontFamily: 'Playfair Display, serif' }}>
+          <h2 className="text-5xl font-serif italic bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
             Freedom Countdown
           </h2>
 
@@ -369,30 +447,9 @@ export default function StudyBreakSite() {
   }
 
   if (activeSection === 'emergency') {
-    const getRandomResponse = (protocolKey) => {
-      const responses = emergencyProtocols[protocolKey].responses;
-      return responses[Math.floor(Math.random() * responses.length)];
-    };
-
-    const handleProtocolClick = (key) => {
-      if (!canChangeProtocol && activeProtocol === key) return;
-      
-      // Clear any existing timer
-      if (cooldownTimer.current) {
-        clearTimeout(cooldownTimer.current);
-      }
-      
-      // Set new response immediately
-      const newResponse = getRandomResponse(key);
-      setCurrentResponse(newResponse);
-      setActiveProtocol(key);
-      
-      // Start cooldown
-      setCanChangeProtocol(false);
-      cooldownTimer.current = setTimeout(() => {
-        setCanChangeProtocol(true);
-      }, 5000);
-    };
+    const currentResponse = activeProtocol ? 
+      emergencyProtocols[activeProtocol].responses[Math.floor(Math.random() * emergencyProtocols[activeProtocol].responses.length)] 
+      : null;
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-rose-50 via-orange-50 to-amber-50 flex flex-col items-center justify-center p-8 relative overflow-hidden">
@@ -408,7 +465,7 @@ export default function StudyBreakSite() {
 
         <div className="max-w-2xl w-full space-y-10 relative z-10">
           <div className="text-center space-y-2">
-            <h2 className="text-5xl font-serif italic bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent" style={{ fontFamily: 'Playfair Display, serif' }}>
+            <h2 className="text-5xl font-serif italic bg-gradient-to-r from-rose-600 to-orange-600 bg-clip-text text-transparent">
               Emergency Protocols
             </h2>
             <p className="text-sm text-stone-600">Click when crisis strikes</p>
@@ -416,7 +473,7 @@ export default function StudyBreakSite() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
             {Object.entries(emergencyProtocols).map(([key, protocol]) => {
-              const Icon = protocol.icon;
+              const IconComponent = protocol.icon;
               const isActive = activeProtocol === key;
               return (
                 <button
@@ -430,7 +487,7 @@ export default function StudyBreakSite() {
                 >
                   <div className={`absolute inset-0 bg-gradient-to-br ${protocol.color} ${isActive ? 'opacity-20' : 'opacity-0 group-hover:opacity-10'} transition-opacity duration-500`}></div>
                   <div className="relative z-10">
-                    <Icon className={`w-10 h-10 mb-4 transition-all duration-500 ${!isActive && 'group-hover:scale-110 group-hover:rotate-12'}`} />
+                    <IconComponent className={`w-10 h-10 mb-4 transition-all duration-500 ${!isActive && 'group-hover:scale-110 group-hover:rotate-12'}`} />
                     <h3 className="text-xl font-bold capitalize mb-2">{key.replace('_', ' ')}</h3>
                     <p className="text-xs text-stone-600">
                       {isActive && !canChangeProtocol ? '(Wait a moment...)' : isActive ? '(Click for new advice)' : '(Click to activate)'}
@@ -439,21 +496,6 @@ export default function StudyBreakSite() {
                 </button>
               );
             })}
-            
-            {/* Call/Text Vineeth Button */}
-            <a
-              href="tel:+1234567890"
-              className="p-8 rounded-3xl border-2 border-white/60 bg-white/40 backdrop-blur-sm hover:bg-white/50 hover:scale-105 hover:shadow-xl transition-all duration-500 text-left group relative overflow-hidden md:col-span-2"
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-green-400 to-emerald-500 opacity-0 group-hover:opacity-10 transition-opacity duration-500"></div>
-              <div className="relative z-10 flex items-center gap-4">
-                <Phone className="w-10 h-10 transition-all duration-500 group-hover:scale-110 group-hover:rotate-12" />
-                <div>
-                  <h3 className="text-xl font-bold mb-1">Call/Text Vineeth</h3>
-                  <p className="text-xs text-stone-600">(For when you need a real person)</p>
-                </div>
-              </div>
-            </a>
           </div>
 
           {activeProtocol && currentResponse && (
@@ -462,11 +504,7 @@ export default function StudyBreakSite() {
                 onClick={(e) => {
                   e.stopPropagation();
                   setActiveProtocol(null);
-                  setCurrentResponse(null);
                   setCanChangeProtocol(true);
-                  if (cooldownTimer.current) {
-                    clearTimeout(cooldownTimer.current);
-                  }
                 }}
                 className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-all text-xl font-light"
               >
